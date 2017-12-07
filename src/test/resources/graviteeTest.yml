@@ -2,7 +2,9 @@ management:
   type: mongodb
   mongodb:
     servers:
-      - host: ${ds.mongodb.host}
+      - host: test1
+        port: 27017
+      - host: test2
         port: 27017
     dbname: ${ds.mongodb.dbname}
     username: gravitee

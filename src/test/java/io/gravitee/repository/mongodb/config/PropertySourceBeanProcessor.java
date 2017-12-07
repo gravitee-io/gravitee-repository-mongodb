@@ -25,9 +25,6 @@ import org.springframework.core.env.PropertiesPropertySource;
 
 import java.util.Properties;
 
-/**
- * @author Guillaume GILLON (guillaume.gillon@outlook.com)
- */
 public class PropertySourceBeanProcessor implements BeanFactoryPostProcessor, Ordered {
     private Environment environment;
 
