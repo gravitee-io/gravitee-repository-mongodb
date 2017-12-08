@@ -15,6 +15,11 @@
  */
 package io.gravitee.repository.mongodb.config;
 
+import com.mongodb.Mongo;
+import de.flapdoodle.embed.mongo.distribution.Version;
+import de.flapdoodle.embed.mongo.tests.MongodForTestsFactory;
+import io.gravitee.repository.Scope;
+import io.gravitee.repository.mongodb.common.MongoFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.YamlPropertiesFactoryBean;
 import org.springframework.context.annotation.Bean;
@@ -26,12 +31,30 @@ import org.springframework.core.io.Resource;
 
 import java.util.Properties;
 
+/**
+ * @author Guillaume GILLON (guillaume.gillon@outlook.com)
+ */
 @Configuration
 //@Import(ManagementRepositoryConfiguration.class)
 public class MongoRepositoryConfigurationTest {
 
     @Autowired
     private Environment environment;
+
+    @Bean
+    public MongodForTestsFactory factory() throws Exception {
+        return MongodForTestsFactory.with(Version.Main.DEVELOPMENT);
+    }
+
+    @Bean(name = "managementMongo")
+    public static MongoFactory mongoFactory() {
+        return new MongoFactory(Scope.MANAGEMENT.getName());
+    }
+
+    @Bean
+    public Mongo mongo() throws Exception {
+        return factory().newMongo();
+    }
 
     @Bean
     public static PropertySourcesPlaceholderConfigurer graviteePropertyPlaceholderConfigurer() {

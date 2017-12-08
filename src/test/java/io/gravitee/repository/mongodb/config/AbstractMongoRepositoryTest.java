@@ -20,7 +20,10 @@ import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+/**
+ * @author Guillaume GILLON (guillaume.gillon@outlook.com)
+ */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {MongoRepositoryConfigurationTest.class, ManagementRepositoryConfiguration.class})
+@ContextConfiguration(classes = {MongoRepositoryConfigurationTest.class})
 public abstract class AbstractMongoRepositoryTest {
 }
