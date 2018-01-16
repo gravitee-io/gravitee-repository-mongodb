@@ -69,6 +69,7 @@ public class MongoFactory implements FactoryBean<Mongo> {
         Integer localThreshold = readPropertyValue(propertyPrefix + "localThreshold", Integer.class);
         Integer minConnectionsPerHost = readPropertyValue(propertyPrefix + "minConnectionsPerHost", Integer.class);
         Boolean sslEnabled = readPropertyValue(propertyPrefix + "sslEnabled", Boolean.class);
+        Boolean sslInvalidHostNameAllowed = readPropertyValue(propertyPrefix + "sslInvalidHostNameAllowed", Boolean.class);
         Integer threadsAllowedToBlockForConnectionMultiplier = readPropertyValue(propertyPrefix + "threadsAllowedToBlockForConnectionMultiplier", Integer.class);
         Boolean cursorFinalizerEnabled = readPropertyValue(propertyPrefix + "cursorFinalizerEnabled", Boolean.class);
 
@@ -105,6 +106,8 @@ public class MongoFactory implements FactoryBean<Mongo> {
             builder.minConnectionsPerHost(minConnectionsPerHost);
         if (sslEnabled != null)
             builder.sslEnabled(sslEnabled);
+        if(sslInvalidHostNameAllowed != null)
+            builder.sslInvalidHostNameAllowed(sslInvalidHostNameAllowed);
         if (threadsAllowedToBlockForConnectionMultiplier != null)
             builder.threadsAllowedToBlockForConnectionMultiplier(threadsAllowedToBlockForConnectionMultiplier);
         if (cursorFinalizerEnabled != null)
