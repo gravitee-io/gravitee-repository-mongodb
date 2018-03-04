@@ -92,17 +92,6 @@ public class MongoUserRepository implements UserRepository {
 	}
 
 	@Override
-	public Optional<User> findById(String id) throws TechnicalException {
-		logger.debug("Find user by ID [{}]", id);
-
-		UserMongo user = internalUserRepo.findOne(id);
-		User res = mapper.map(user, User.class);
-
-		logger.debug("Find user by ID [{}] - Done", id);
-		return Optional.ofNullable(res);
-	}
-
-	@Override
 	public User create(User user) throws TechnicalException {
 		logger.debug("Create user [{}]", user.getUsername());
 

@@ -29,13 +29,10 @@ import java.util.Set;
  * @author GraviteeSource Team
  */
 @Repository
-public interface UserMongoRepository extends MongoRepository<UserMongo, String> {
+public interface UserMongoRepository extends MongoRepository<UserMongo, String>, UserMongoRepositoryCustom {
 
 	@Query(value = "{ _id: {$in: ?0} }", fields = "{'picture': 0}")
 	Set<UserMongo> findByIds(List<String> ids);
-
-	@Query(value = "{}", fields = "{'picture': 0}")
-	List<UserMongo> findAll();
 
 	UserMongo findByUsername(String username);
 }
