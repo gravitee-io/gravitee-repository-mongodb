@@ -22,10 +22,12 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 
 import io.gravitee.repository.mongodb.management.internal.model.PageMongo;
+import org.springframework.data.mongodb.core.query.Update;
 
 /**
  * @author Titouan COMPIEGNE (titouan.compiegne at graviteesource.com)
  * @author Nicolas GERAUD (nicolas.geraud at graviteesource.com)
+ * @author Guillaume GILLON
  * @author GraviteeSource Team
  */
 public class PageMongoRepositoryImpl implements PageMongoRepositoryCustom {
@@ -52,4 +54,13 @@ public class PageMongoRepositoryImpl implements PageMongoRepositoryCustom {
 		PageMongo page = mongoTemplate.findOne(query, PageMongo.class);
 		return (page != null) ? page.getOrder() : 0;
 	}
+
+	public void updateFolderParent(String pageId) {
+        Query query = new Query();
+        query.addCriteria(Criteria.where("parentId").is(pageId));
+        Update update = new Update();
+        update.set("parentId", "");
+
+        mongoTemplate.updateMulti(query,update, PageMongo.class);
+    }
 }
