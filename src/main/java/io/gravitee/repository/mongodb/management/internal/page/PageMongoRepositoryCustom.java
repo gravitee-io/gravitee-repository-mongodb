@@ -18,6 +18,7 @@ package io.gravitee.repository.mongodb.management.internal.page;
 /**
  * @author Titouan COMPIEGNE (titouan.compiegne at graviteesource.com)
  * @author Nicolas GERAUD (nicolas.geraud at graviteesource.com)
+ * @author Guillaume GILLON 
  * @author GraviteeSource Team
  */
 public interface PageMongoRepositoryCustom {
@@ -25,4 +26,6 @@ public interface PageMongoRepositoryCustom {
 	int findMaxPageOrderByApi(String apiId);
 
 	int findMaxPortalPageOrder();
+
+	void updateFolderParent(String pageId);
 }
