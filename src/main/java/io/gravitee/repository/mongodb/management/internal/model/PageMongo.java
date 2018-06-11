@@ -54,6 +54,8 @@ public class PageMongo extends Auditable {
 
 	private List<String> excludedGroups;
 
+    private String parentId;
+
 	public String getId() {
 		return id;
 	}
@@ -158,7 +160,11 @@ public class PageMongo extends Auditable {
 		this.excludedGroups = excludedGroups;
 	}
 
-	@Override
+    public String getParentId() { return parentId; }
+
+    public void setParentId(String parentId) { this.parentId = parentId; }
+
+    @Override
 	public boolean equals(Object o) {
 		if (this == o) return true;
 		if (o == null || getClass() != o.getClass()) return false;
@@ -184,6 +190,7 @@ public class PageMongo extends Auditable {
 		sb.append(", api='").append(api).append('\'');
 		sb.append(", homepage='").append(homepage).append('\'');
 		sb.append(", excludedGroups='").append(excludedGroups).append('\'');
+        sb.append(", parentId='").append(parentId).append('\'');
 		sb.append('}');
 		return sb.toString();
 	}
