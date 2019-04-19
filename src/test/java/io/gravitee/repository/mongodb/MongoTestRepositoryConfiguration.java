@@ -32,7 +32,7 @@ public class MongoTestRepositoryConfiguration extends AbstractRepositoryConfigur
 
     @Bean
     public MongoTestFactory factory() throws Exception {
-        return MongoTestFactory.with(Version.Main.V3_3);
+        return MongoTestFactory.with(Version.Main.V3_5);
     }
 
     @Override
