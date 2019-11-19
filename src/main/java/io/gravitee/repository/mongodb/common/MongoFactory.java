@@ -296,7 +296,7 @@ public class MongoFactory implements FactoryBean<Mongo> {
             String password = readPropertyValue(propertyPrefix + "password");
             MongoCredential credentials = null;
             if (username != null || password != null) {
-                String authSource = readPropertyValue(propertyPrefix + "authSource", String.class, "gravitee-am");
+                String authSource = readPropertyValue(propertyPrefix + "authSource", String.class, "gravitee");
                 credentials = MongoCredential.createCredential(username, authSource, password.toCharArray());
                 builder.credential(credentials);
             }
