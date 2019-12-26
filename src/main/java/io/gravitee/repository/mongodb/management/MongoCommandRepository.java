@@ -56,18 +56,22 @@ public class MongoCommandRepository implements CommandRepository {
 
     @PostConstruct
     public void ensureTTLIndex() {
-        mongoOperations.indexOps("commands").ensureIndex(new IndexDefinition() {
-            @Override
-            public Document getIndexKeys() {
-                return new Document("expiredAt", 1L);
-            }
+        try {
+            mongoOperations.indexOps("commands").ensureIndex(new IndexDefinition() {
+                @Override
+                public Document getIndexKeys() {
+                    return new Document("expiredAt", 1L);
+                }
 
-            @Override
-            public Document getIndexOptions() {
-                // To expire Documents at a Specific Clock Time we have to specify an expireAfterSeconds value of 0.
-                return new Document("expireAfterSeconds", 0L);
-            }
-        });
+                @Override
+                public Document getIndexOptions() {
+                    // To expire Documents at a Specific Clock Time we have to specify an expireAfterSeconds value of 0.
+                    return new Document("expireAfterSeconds", 0L);
+                }
+            });
+        } catch (Exception e) {
+            logger.error("Error trying to ensure TTL for the the 'commands' collection.", e);
+        }
     }
 
     @Override
