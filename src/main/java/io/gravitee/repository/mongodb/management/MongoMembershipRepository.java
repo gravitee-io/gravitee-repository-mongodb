@@ -79,6 +79,13 @@ public class MongoMembershipRepository implements MembershipRepository {
     }
 
     @Override
+    public void deleteMembers(MembershipReferenceType referenceType, String referenceId) throws TechnicalException {
+        logger.debug("Delete memberships [{}, {}]", referenceType, referenceId);
+        internalMembershipRepo.deleteByRef(referenceType.name(), referenceId);
+        logger.debug("Delete memberships [{}, {}] - Done", referenceType, referenceId);
+    }
+
+    @Override
     public Optional<Membership> findById(String userId, MembershipReferenceType referenceType, String referenceId) throws TechnicalException {
         logger.debug("Find membership by ID [{}, {}, {}]", userId, referenceType, referenceId);
 
