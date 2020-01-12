@@ -57,4 +57,8 @@ public interface MembershipMongoRepository extends MongoRepository<MembershipMon
 
     @Query("{ 'id.userId' : ?0 }")
     Set<MembershipMongo> findByUser(String userId);
+
+    @Query(value = "{ 'id.referenceType': ?0, 'id.referenceId': ?1 }", delete = true)
+    void deleteByRef(String referenceType, String referenceId);
+
 }
