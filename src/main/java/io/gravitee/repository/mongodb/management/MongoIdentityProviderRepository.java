@@ -89,6 +89,7 @@ public class MongoIdentityProviderRepository implements IdentityProviderReposito
             identityProviderMongo.setUserProfileMapping(identityProvider.getUserProfileMapping());
             identityProviderMongo.setEmailRequired(identityProvider.getEmailRequired());
             identityProviderMongo.setSyncMappings(identityProvider.getSyncMappings());
+            identityProviderMongo.setOrder(identityProvider.getOrder());
 
             IdentityProviderMongo identityProviderMongoUpdated = internalIdentityProviderRepository.save(identityProviderMongo);
             return map(identityProviderMongoUpdated);
@@ -154,6 +155,8 @@ public class MongoIdentityProviderRepository implements IdentityProviderReposito
 
         IdentityProvider identityProvider = mapper.map(identityProviderMongo, IdentityProvider.class);
 
+        identityProvider.setConfiguration(identityProviderMongo.getConfiguration());
+
         if (identityProviderMongo.getGroupMappings() != null) {
             identityProviderMongo.getGroupMappings()
                     .forEach((condition, groups) -> {
@@ -183,5 +186,15 @@ public class MongoIdentityProviderRepository implements IdentityProviderReposito
 
         LOGGER.debug("Find all identity providers by organization - Done");
         return res;
+    }
+
+    @Override
+    public Integer findMaxIdentityProviderOrganizationIdOrder(String organizationId) throws TechnicalException {
+        try {
+            return internalIdentityProviderRepository.findMaxIdentityProviderOrganizationIdOrder(organizationId);
+        } catch (Exception e) {
+            LOGGER.error("An error occured when searching max order identity provider for organization [{}]", organizationId, e);
+            throw new TechnicalException("An error occured when searching max order identity provider for organization");
+        }
     }
 }

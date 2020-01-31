@@ -52,6 +52,8 @@ public class IdentityProviderMongo extends Auditable {
 
 	private Boolean syncMappings;
 
+	private int order;
+	
 	public String getId() {
         return id;
     }
@@ -148,7 +150,15 @@ public class IdentityProviderMongo extends Auditable {
 		this.syncMappings = syncMappings;
 	}
 
-	@Override
+	public int getOrder() {
+        return order;
+    }
+
+    public void setOrder(int order) {
+        this.order = order;
+    }
+
+    @Override
 	public boolean equals(Object o) {
 		if (this == o) return true;
 		if (o == null || getClass() != o.getClass()) return false;
