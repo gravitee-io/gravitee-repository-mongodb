@@ -57,6 +57,16 @@ public class MongoViewRepository implements ViewRepository {
     }
 
     @Override
+    public Optional<View> findByKey(String key) throws TechnicalException {
+        LOGGER.debug("Find view by key [{}]", key);
+
+        final ViewMongo view = internalViewRepo.findByKey(key).orElse(null);
+
+        LOGGER.debug("Find view by key [{}] - Done", key);
+        return Optional.ofNullable(mapper.map(view, View.class));
+    }
+
+    @Override
     public View create(View view) throws TechnicalException {
         LOGGER.debug("Create view [{}]", view.getName());
 
