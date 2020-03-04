@@ -30,6 +30,7 @@ public class ViewMongo extends Auditable{
 
 	@Id
 	private String id;
+	private String key;
 	private String name;
 	private String description;
 	private boolean defaultView;
@@ -43,6 +44,14 @@ public class ViewMongo extends Auditable{
 	}
 	public void setId(String id) {
 		this.id = id;
+	}
+
+	public String getKey() {
+		return key;
+	}
+
+	public void setKey(String key) {
+		this.key = key;
 	}
 
 	public String getName() {
@@ -113,6 +122,7 @@ public class ViewMongo extends Auditable{
 	public String toString() {
 		return "ViewMongo{" +
 				"id='" + id + '\'' +
+				", key='" + key + '\'' +
 				", name='" + name + '\'' +
 				", description='" + description + '\'' +
 				", defaultView='" + defaultView + '\'' +

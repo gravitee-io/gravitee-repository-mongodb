@@ -15,9 +15,12 @@
  */
 package io.gravitee.repository.mongodb.management.internal.api;
 
+import io.gravitee.repository.management.model.View;
 import io.gravitee.repository.mongodb.management.internal.model.ViewMongo;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
+
+import java.util.Optional;
 
 /**
  * @author Azize ELAMRANI (azize.elamrani at graviteesource.com)
@@ -25,7 +28,7 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface ViewMongoRepository extends MongoRepository<ViewMongo, String> {
-
+    Optional<ViewMongo> findByKey(String key);
 }
 
 
