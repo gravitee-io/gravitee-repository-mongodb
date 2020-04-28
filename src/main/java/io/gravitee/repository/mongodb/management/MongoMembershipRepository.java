@@ -205,6 +205,7 @@ public class MongoMembershipRepository implements MembershipRepository {
             }
             membership.setRoles(roles);
         }
+        membership.setSource(membershipMongo.getSource());
         membership.setCreatedAt(membershipMongo.getCreatedAt());
         membership.setUpdatedAt(membershipMongo.getUpdatedAt());
         return membership;
@@ -223,6 +224,7 @@ public class MongoMembershipRepository implements MembershipRepository {
             }
             membershipMongo.setRoles(roles);
         }
+        membershipMongo.setSource(membership.getSource());
         membershipMongo.setCreatedAt(membership.getCreatedAt());
         membershipMongo.setUpdatedAt(membership.getUpdatedAt());
         return membershipMongo;
