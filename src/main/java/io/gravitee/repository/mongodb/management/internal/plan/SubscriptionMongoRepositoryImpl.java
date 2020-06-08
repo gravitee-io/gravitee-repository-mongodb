@@ -46,7 +46,7 @@ public class SubscriptionMongoRepositoryImpl implements SubscriptionMongoReposit
             query.addCriteria(Criteria.where("clientId").is(criteria.getClientId()));
         }
 
-        if (criteria.getApis() != null && ! criteria.getApis().isEmpty()) {
+        if (criteria.getApis() != null && !criteria.getApis().isEmpty()) {
             if (criteria.getApis().size() == 1) {
                 query.addCriteria(Criteria.where("api").is(criteria.getApis().iterator().next()));
             } else {
@@ -54,7 +54,7 @@ public class SubscriptionMongoRepositoryImpl implements SubscriptionMongoReposit
             }
         }
 
-        if (criteria.getPlans() != null && ! criteria.getPlans().isEmpty()) {
+        if (criteria.getPlans() != null && !criteria.getPlans().isEmpty()) {
             if (criteria.getPlans().size() == 1) {
                 query.addCriteria(Criteria.where("plan").is(criteria.getPlans().iterator().next()));
             } else {
@@ -62,7 +62,7 @@ public class SubscriptionMongoRepositoryImpl implements SubscriptionMongoReposit
             }
         }
 
-        if (criteria.getStatuses() != null && ! criteria.getStatuses().isEmpty()) {
+        if (criteria.getStatuses() != null && !criteria.getStatuses().isEmpty()) {
             if (criteria.getStatuses().size() == 1) {
                 query.addCriteria(Criteria.where("status").is(criteria.getStatuses().iterator().next()));
             } else {
@@ -70,7 +70,7 @@ public class SubscriptionMongoRepositoryImpl implements SubscriptionMongoReposit
             }
         }
 
-        if (criteria.getApplications() != null && ! criteria.getApplications().isEmpty()) {
+        if (criteria.getApplications() != null && !criteria.getApplications().isEmpty()) {
             if (criteria.getApplications().size() == 1) {
                 query.addCriteria(Criteria.where("application").is(criteria.getApplications().iterator().next()));
             } else {
@@ -83,15 +83,16 @@ public class SubscriptionMongoRepositoryImpl implements SubscriptionMongoReposit
         }
 
         // set sort by created at
-        query.with(new Sort(Sort.Direction.DESC, "createdAt"));
+        query.with(Sort.by(Sort.Direction.DESC, "createdAt"));
+
+        long total = mongoTemplate.count(query, SubscriptionMongo.class);
 
         // set pageable
         if (pageable != null) {
-            query.with(new PageRequest(pageable.pageNumber(), pageable.pageSize()));
+            query.with(PageRequest.of(pageable.pageNumber(), pageable.pageSize()));
         }
 
         List<SubscriptionMongo> subscriptions = mongoTemplate.find(query, SubscriptionMongo.class);
-        long total = mongoTemplate.count(query, SubscriptionMongo.class);
 
         return new Page<>(
                 subscriptions, (pageable != null) ? pageable.pageNumber() : 0,

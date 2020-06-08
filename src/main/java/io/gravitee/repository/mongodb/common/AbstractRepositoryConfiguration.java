@@ -19,35 +19,21 @@ import io.gravitee.repository.mongodb.management.mapper.GraviteeDozerMapper;
 import io.gravitee.repository.mongodb.management.mapper.GraviteeMapper;
 import io.gravitee.repository.mongodb.management.transaction.NoTransactionManager;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider;
 import org.springframework.core.env.Environment;
-import org.springframework.core.type.filter.AnnotationTypeFilter;
-import org.springframework.data.annotation.Persistent;
-import org.springframework.data.mongodb.config.AbstractMongoConfiguration;
-import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.config.AbstractMongoClientConfiguration;
 import org.springframework.transaction.support.AbstractPlatformTransactionManager;
-import org.springframework.util.ClassUtils;
-import org.springframework.util.StringUtils;
 
 import java.net.URI;
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  * @author David BRASSELY (david.brassely at graviteesource.com)
  * @author GraviteeSource Team
  */
-public abstract class AbstractRepositoryConfiguration extends AbstractMongoConfiguration {
+public abstract class AbstractRepositoryConfiguration extends AbstractMongoClientConfiguration {
 
     @Autowired
     private Environment environment;
-
-    @Override
-    protected String getMappingBasePackage() {
-        return getClass().getPackage().getName();
-    }
 
     @Override
     protected String getDatabaseName() {
@@ -62,26 +48,6 @@ public abstract class AbstractRepositoryConfiguration extends AbstractMongoConfi
     @Bean
     public GraviteeMapper graviteeMapper() {
         return new GraviteeDozerMapper();
-    }
-
-    protected Set<Class<?>> getInitialEntitySet() throws ClassNotFoundException {
-
-        String basePackage = getMappingBasePackage();
-        Set<Class<?>> initialEntitySet = new HashSet<Class<?>>();
-
-        if (StringUtils.hasText(basePackage)) {
-            ClassPathScanningCandidateComponentProvider componentProvider = new ClassPathScanningCandidateComponentProvider(
-                    false);
-            componentProvider.addIncludeFilter(new AnnotationTypeFilter(Document.class));
-            componentProvider.addIncludeFilter(new AnnotationTypeFilter(Persistent.class));
-
-            for (BeanDefinition candidate : componentProvider.findCandidateComponents(basePackage)) {
-                initialEntitySet.add(ClassUtils.forName(candidate.getBeanClassName(),
-                        this.getClass().getClassLoader()));
-            }
-        }
-
-        return initialEntitySet;
     }
 
     @Bean

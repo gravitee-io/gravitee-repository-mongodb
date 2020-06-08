@@ -46,8 +46,8 @@ public class AuditMongoRepositoryImpl implements AuditMongoRepositoryCustom {
             filter.getReferences().forEach(
                     (referenceType, referenceIds) -> query.addCriteria(
                             where("referenceType").is(referenceType).
-                            andOperator(
-                            where("referenceId").in(referenceIds))));
+                                    andOperator(
+                                            where("referenceId").in(referenceIds))));
         }
 
         if (filter.getFrom() != 0 && filter.getTo() != 0) {
@@ -68,11 +68,12 @@ public class AuditMongoRepositoryImpl implements AuditMongoRepositoryCustom {
             query.addCriteria(where("event").in(filter.getEvents()));
         }
 
-        query.with(new PageRequest(pageable.pageNumber(), pageable.pageSize(),
-                new Sort(Sort.Direction.DESC, "createdAt")));
+        long total = mongoTemplate.count(query, AuditMongo.class);
+
+        query.with(PageRequest.of(pageable.pageNumber(), pageable.pageSize(),
+                Sort.by(Sort.Direction.DESC, "createdAt")));
 
         List<AuditMongo> audits = mongoTemplate.find(query, AuditMongo.class);
-        long total = mongoTemplate.count(query, AuditMongo.class);
 
         return new Page<>(audits, pageable.pageNumber(), audits.size(), total);
     }

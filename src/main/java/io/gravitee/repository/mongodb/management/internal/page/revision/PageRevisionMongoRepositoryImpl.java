@@ -15,14 +15,12 @@
  */
 package io.gravitee.repository.mongodb.management.internal.page.revision;
 
-import io.gravitee.repository.mongodb.management.internal.model.PageMongo;
 import io.gravitee.repository.mongodb.management.internal.model.PageRevisionMongo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Query;
 
-import java.util.List;
 import java.util.Optional;
 
 import static org.springframework.data.mongodb.core.query.Criteria.where;
@@ -40,7 +38,7 @@ public class PageRevisionMongoRepositoryImpl implements PageRevisionMongoReposit
     public Optional<PageRevisionMongo> findLastByPageId(String pageId) {
         Query query = new Query();
         query.limit(1);
-        query.with(new Sort(Sort.Direction.DESC, "_id.revision"));
+        query.with(Sort.by(Sort.Direction.DESC, "_id.revision"));
         query.addCriteria(where("_id.pageId").is(pageId));
 
         PageRevisionMongo revision = mongoTemplate.findOne(query, PageRevisionMongo.class);

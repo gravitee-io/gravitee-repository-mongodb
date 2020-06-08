@@ -46,7 +46,7 @@ public class UserMongoRepositoryImpl implements UserMongoRepositoryCustom {
         Query query = new Query();
         if (criteria != null) {
             if (criteria.getStatuses() != null && criteria.getStatuses().length > 0) {
-                query.addCriteria(where("status").in(criteria.getStatuses()));
+                query.addCriteria(where("status").in((Object[])criteria.getStatuses()));
             }
 
             if (criteria.hasNoStatus()) {
@@ -57,7 +57,7 @@ public class UserMongoRepositoryImpl implements UserMongoRepositoryCustom {
                 query.addCriteria(where("organizationId").is(criteria.getOrganizationId()));
             }
         }
-        query.with(new Sort(Sort.Direction.ASC, "lastname", "firstname"));
+        query.with(Sort.by(Sort.Direction.ASC, "lastname", "firstname"));
         if (pageable != null) {
             query.with(PageRequest.of(pageable.pageNumber(), pageable.pageSize()));
         }

@@ -53,7 +53,7 @@ public class ApiKeyMongoRepositoryImpl implements ApiKeyMongoRepositoryCustom {
             query.addCriteria(Criteria.where("updatedAt").gte(new Date(filter.getFrom())).lt(new Date(filter.getTo())));
         }
 
-        query.with(new Sort(Sort.Direction.DESC, "updatedAt"));
+        query.with(Sort.by(Sort.Direction.DESC, "updatedAt"));
 
         List<ApiKeyMongo> events = mongoTemplate.find(query, ApiKeyMongo.class);
         long total = mongoTemplate.count(query, ApiKeyMongo.class);
