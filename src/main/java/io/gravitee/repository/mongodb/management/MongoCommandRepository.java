@@ -50,26 +50,6 @@ public class MongoCommandRepository implements CommandRepository {
     @Autowired
     private GraviteeMapper mapper;
 
-    @Autowired
-    @Qualifier("managementMongoTemplate")
-    private MongoOperations mongoOperations;
-
-    @PostConstruct
-    public void ensureTTLIndex() {
-        mongoOperations.indexOps("commands").ensureIndex(new IndexDefinition() {
-            @Override
-            public Document getIndexKeys() {
-                return new Document("expiredAt", 1L);
-            }
-
-            @Override
-            public Document getIndexOptions() {
-                // To expire Documents at a Specific Clock Time we have to specify an expireAfterSeconds value of 0.
-                return new Document("expireAfterSeconds", 0L);
-            }
-        });
-    }
-
     @Override
     public Optional<Command> findById(String commandId) throws TechnicalException {
         logger.debug("Find Command by ID [{}]", commandId);
