@@ -27,6 +27,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * @author David BRASSELY (david.brassely at graviteesource.com)
@@ -112,8 +113,9 @@ public class MongoIdentityProviderRepository implements IdentityProviderReposito
     public Set<IdentityProvider> findAll() throws TechnicalException {
         LOGGER.debug("Find all identity providers");
 
-        List<IdentityProviderMongo> identityProviders = internalIdentityProviderRepository.findAll();
-        Set<IdentityProvider> res = mapper.collection2set(identityProviders, IdentityProviderMongo.class, IdentityProvider.class);
+        Set<IdentityProvider> res = internalIdentityProviderRepository.findAll().stream()
+                .map(this::map)
+                .collect(Collectors.toSet());
 
         LOGGER.debug("Find all identity providers - Done");
         return res;
