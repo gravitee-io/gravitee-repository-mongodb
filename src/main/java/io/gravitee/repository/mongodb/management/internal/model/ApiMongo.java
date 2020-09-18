@@ -48,6 +48,8 @@ public class ApiMongo extends Auditable {
 
     private String definition;
 
+    private Integer definitionVersion;
+
     private String lifecycleState;
 
     private String visibility;
@@ -206,6 +208,14 @@ public class ApiMongo extends Auditable {
         this.background = background;
     }
 
+    public Integer getDefinitionVersion() {
+        return definitionVersion;
+    }
+
+    public void setDefinitionVersion(Integer definitionVersion) {
+        this.definitionVersion = definitionVersion;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -232,6 +242,7 @@ public class ApiMongo extends Auditable {
         sb.append(", metadatas='").append(metadatas).append('\'');
         sb.append(", apiLifecycleState='").append(apiLifecycleState).append('\'');
         sb.append(", disableMembershipNotifications='").append(disableMembershipNotifications).append('\'');
+        sb.append(", definitionVersion='").append(definitionVersion).append('\'');
         sb.append('}');
         return sb.toString();
     }
