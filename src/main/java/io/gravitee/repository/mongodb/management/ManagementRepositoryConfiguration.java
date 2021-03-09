@@ -25,7 +25,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
-import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 
@@ -58,9 +57,9 @@ public class ManagementRepositoryConfiguration extends AbstractRepositoryConfigu
 	}
 
 	@Bean(name = "managementMongoTemplate")
-	public MongoOperations mongoOperations(MongoClient mongo) {
+	public MongoTemplate mongoOperations(MongoClient mongoClient) {
 		try {
-			return new MongoTemplate(mongo, getDatabaseName());
+			return new MongoTemplate(mongoClient, getDatabaseName());
 		} catch (Exception e) {
 			throw new IllegalStateException(e);
 		}

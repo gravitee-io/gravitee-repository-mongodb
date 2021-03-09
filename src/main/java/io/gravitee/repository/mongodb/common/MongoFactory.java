@@ -15,6 +15,7 @@
  */
 package io.gravitee.repository.mongodb.common;
 
+import com.github.dozermapper.core.inject.Inject;
 import com.mongodb.*;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
@@ -57,6 +58,7 @@ public class MongoFactory implements FactoryBean<MongoClient> {
 
     private final String propertyPrefix;
 
+    @Inject
     private MongoClient mongoClient;
 
     public MongoFactory(String propertyPrefix) {
@@ -64,6 +66,7 @@ public class MongoFactory implements FactoryBean<MongoClient> {
     }
     
     private SocketSettings buildSocketSettings() {
+        logger.info("buildSocketSettings");
         SocketSettings.Builder socketBuilder = SocketSettings.builder();
 
         Integer connectTimeout = readPropertyValue(propertyPrefix + "connectTimeout", Integer.class, 1000);
@@ -266,6 +269,7 @@ public class MongoFactory implements FactoryBean<MongoClient> {
 
     @Override
     public MongoClient getObject() throws Exception {
+        logger.info("getObject");
         // According to https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/beans/factory/FactoryBean.html#isSingleton--
         // It is the responsibility of the bean factory to ensure singleton instance.
         if (mongoClient == null) {
