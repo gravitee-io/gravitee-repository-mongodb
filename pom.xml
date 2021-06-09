@@ -41,7 +41,7 @@
         <spring.data.mongodb.version>2.1.5.RELEASE</spring.data.mongodb.version>
         <dozer.version>6.4.1</dozer.version>
         <maven-dependency-plugin.version>2.10</maven-dependency-plugin.version>
-        <snakeyaml.version>1.21</snakeyaml.version>
+        <snakeyaml.version>1.26</snakeyaml.version>
     </properties>
 
     <dependencies>
