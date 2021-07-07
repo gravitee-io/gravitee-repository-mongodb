@@ -24,6 +24,7 @@ import io.gravitee.repository.mongodb.management.mapper.GraviteeMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -40,6 +41,14 @@ public class MongoPlanRepository implements PlanRepository {
 
     @Autowired
     private PlanMongoRepository internalPlanRepository;
+
+    @Override
+    public List<Plan> findByApis(List<String> apiIds) throws TechnicalException {
+        return internalPlanRepository.findByApiIn(apiIds)
+                .stream()
+                .map(this::map)
+                .collect(Collectors.toList());
+    }
 
     @Override
     public Set<Plan> findByApi(String apiId) throws TechnicalException {

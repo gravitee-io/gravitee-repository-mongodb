@@ -30,4 +30,6 @@ import io.gravitee.repository.mongodb.management.internal.model.PlanMongo;
 public interface PlanMongoRepository extends MongoRepository<PlanMongo, String> {
 
     List<PlanMongo> findByApi(String api);
+
+    List<PlanMongo> findByApiIn(List<String> apis);
 }

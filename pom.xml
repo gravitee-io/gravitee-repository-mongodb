@@ -32,8 +32,8 @@
 	<name>Gravitee.io APIM - Repository - MongoDB</name>
 
 	<properties>
-		<gravitee-repository.version>3.5.3</gravitee-repository.version>
-		<gravitee-repository-test.version>3.5.4</gravitee-repository-test.version>
+		<gravitee-repository.version>3.5.4-SNAPSHOT</gravitee-repository.version>
+		<gravitee-repository-test.version>3.5.5-SNAPSHOT</gravitee-repository-test.version>
 		<gravitee-definition.version>1.25.0</gravitee-definition.version>
 		<embed.mongo.version>2.0.0</embed.mongo.version>
 		<mongo.version>3.12.0</mongo.version>
@@ -195,6 +195,12 @@
             <classifier>tests</classifier>
             <scope>test</scope>
         </dependency>
+
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-core</artifactId>
+			<scope>test</scope>
+		</dependency>
 
         <dependency>
             <groupId>javax.annotation</groupId>

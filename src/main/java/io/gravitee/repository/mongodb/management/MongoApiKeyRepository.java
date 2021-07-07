@@ -84,12 +84,10 @@ public class MongoApiKeyRepository implements ApiKeyRepository {
 				.collect(Collectors.toSet());
 	}
 
-	@Override
-	public List<ApiKey> findByCriteria(ApiKeyCriteria filter) {
-		Page<ApiKeyMongo> apiKeysMongo = internalApiKeyRepo.search(filter);
-
-		return mapper.collection2list(apiKeysMongo.getContent(), ApiKeyMongo.class, ApiKey.class);
-	}
+    @Override
+    public List<ApiKey> findByCriteria(ApiKeyCriteria filter) {
+        return mapper.collection2list(internalApiKeyRepo.search(filter), ApiKeyMongo.class, ApiKey.class);
+    }
 
 	@Override
 	public Optional<ApiKey> findById(String key) throws TechnicalException {
