@@ -1,10 +1,14 @@
-[![CircleCI](https://circleci.com/gh/gravitee-io/gravitee-repository-mongodb.svg?style=shield)](https://circleci.com/gh/gravitee-io/gravitee-repository-mongodb)
+# ⚠️ DEPRECATED
 
-# Gravitee Mongo Repository
+This repository is no longer active, all the sources have been moved to a [new monorepo](https://github.com/gravitee-io/gravitee-api-management/tree/master/gravitee-apim-repository/gravitee-apim-repository-mongodb).
+
+The new repository will be become the single GitHub repository for everything related to Gravitee.io API Management.
+
+## Gravitee Mongo Repository
 
 Mongo repository based on MongoDB
 
-## Requirements
+### Requirements
 
 The minimum requirements are:
 * Maven3
@@ -13,7 +17,7 @@ The minimum requirements are:
 To use Gravitee.io snapshots, you need to declare the following repository in your maven settings:
 `https://oss.sonatype.org/content/repositories/snapshots`
 
-## Building
+### Building
 
 ```shell
 git clone https://github.com/gravitee-io/gravitee-repository-mongodb.git
@@ -21,13 +25,13 @@ cd gravitee-repository-mongodb
 mvn clean package
 ```
 
-## Installing
+### Installing
 
 Unzip the gravitee-repository-mongodb-x.y.z-SNAPSHOT.zip in the gravitee home directory.
  
 
 
-## Configuration
+### Configuration
 
 repository.mongodb options : 
 
